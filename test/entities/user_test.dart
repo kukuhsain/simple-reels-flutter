@@ -13,7 +13,7 @@ void main() {
     "designation": "Founder and CEO of Ulearna "
   }''';
 
-  test('Counter value should be incremented', () {
+  test('User: fromJson', () {
     Map<String, dynamic> jsonMap = jsonDecode(jsonString);
     User user = User.fromJson(jsonMap);
     expect(user.toJson(), jsonMap);
