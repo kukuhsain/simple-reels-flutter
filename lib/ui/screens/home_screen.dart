@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:simple_reels_flutter/data/repositories/video_repository.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() async {
+      final repository = VideoRepository();
+      final videoList = await repository.fetchVideoList();
+      // print(videoList[0]);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

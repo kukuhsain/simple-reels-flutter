@@ -13,7 +13,10 @@ class VideoRepository {
       // Check if the request was successful (status code 200)
       if (response.statusCode == 200) {
         // Decode JSON response
-        List<dynamic> data = jsonDecode(response.body);
+        print('status: 200');
+        Map<String, dynamic> responseBody = jsonDecode(response.body);
+        List<dynamic> data = responseBody['data']['data'];
+        print('data: ${data.length}');
         // Convert the JSON to a list of Video objects
         return data.map((json) => Video.fromJson(json)).toList();
       } else {

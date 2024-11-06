@@ -1,18 +1,18 @@
 class User {
-  final int userId;
-  final String fullname;
-  final String username;
-  final String profilePicture;
-  final String profilePictureCdn;
-  final String designation;
+  final int? userId;
+  final String? fullname;
+  final String? username;
+  final String? profilePicture;
+  final String? profilePictureCdn;
+  final String? designation;
 
   User({
-    required this.userId,
-    required this.fullname,
-    required this.username,
-    required this.profilePicture,
-    required this.profilePictureCdn,
-    required this.designation,
+    this.userId,
+    this.fullname,
+    this.username,
+    this.profilePicture,
+    this.profilePictureCdn,
+    this.designation,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {

@@ -1,78 +1,78 @@
 import 'package:simple_reels_flutter/domain/entities/user.dart';
 
 class Video {
-  final int id;
-  final String title;
-  final String url;
-  final String cdnUrl;
-  final String thumbCdnUrl;
-  final int userId;
-  final String status;
-  final String slug;
-  final String encodeStatus;
-  final int priority;
-  final int categoryId;
-  final int totalViews;
-  final int totalLikes;
-  final int totalComments;
-  final int totalShare;
-  final int totalWishlist;
-  final int duration;
-  final DateTime byteAddedOn;
-  final DateTime byteUpdatedOn;
+  final int? id;
+  final String? title;
+  final String? url;
+  final String? cdnUrl;
+  final String? thumbCdnUrl;
+  final int? userId;
+  final String? status;
+  final String? slug;
+  final String? encodeStatus;
+  final int? priority;
+  final int? categoryId;
+  final int? totalViews;
+  final int? totalLikes;
+  final int? totalComments;
+  final int? totalShare;
+  final int? totalWishlist;
+  final int? duration;
+  final DateTime? byteAddedOn;
+  final DateTime? byteUpdatedOn;
   final String? bunnyStreamVideoId;
   final String? bytePlusVideoId;
-  final String language;
-  final int bunnyEncodingStatus;
+  final String? language;
+  final int? bunnyEncodingStatus;
   final DateTime? deletedAt;
-  final int videoHeight;
-  final int videoWidth;
+  final int? videoHeight;
+  final int? videoWidth;
   final String? location;
-  final int isPrivate;
-  final int isHideComment;
+  final int? isPrivate;
+  final int? isHideComment;
   final String? description;
-  final User user;
-  final bool isLiked;
-  final bool isWished;
-  final bool isFollow;
-  final String videoAspectRatio;
+  final User? user;
+  final bool? isLiked;
+  final bool? isWished;
+  final bool? isFollow;
+  final String? videoAspectRatio;
 
   Video({
-    required this.id,
-    required this.title,
-    required this.url,
-    required this.cdnUrl,
-    required this.thumbCdnUrl,
-    required this.userId,
-    required this.status,
-    required this.slug,
-    required this.encodeStatus,
-    required this.priority,
-    required this.categoryId,
-    required this.totalViews,
-    required this.totalLikes,
-    required this.totalComments,
-    required this.totalShare,
-    required this.totalWishlist,
-    required this.duration,
-    required this.byteAddedOn,
-    required this.byteUpdatedOn,
+    this.id,
+    this.title,
+    this.url,
+    this.cdnUrl,
+    this.thumbCdnUrl,
+    this.userId,
+    this.status,
+    this.slug,
+    this.encodeStatus,
+    this.priority,
+    this.categoryId,
+    this.totalViews,
+    this.totalLikes,
+    this.totalComments,
+    this.totalShare,
+    this.totalWishlist,
+    this.duration,
+    this.byteAddedOn,
+    this.byteUpdatedOn,
     this.bunnyStreamVideoId,
     this.bytePlusVideoId,
-    required this.language,
-    required this.bunnyEncodingStatus,
+    this.language,
+    this.bunnyEncodingStatus,
     this.deletedAt,
-    required this.videoHeight,
-    required this.videoWidth,
+    this.videoHeight,
+    this.videoWidth,
     this.location,
-    required this.isPrivate,
-    required this.isHideComment,
+    this.isPrivate,
+    this.isHideComment,
     this.description,
-    required this.user,
-    required this.isLiked,
-    required this.isWished,
-    required this.isFollow,
-    required this.videoAspectRatio,
+    this.user,
+    this.isLiked,
+    this.isWished,
+    this.isFollow,
+    this.videoAspectRatio,
   });
 
   factory Video.fromJson(Map<String, dynamic> json) {
@@ -94,8 +94,12 @@ class Video {
       totalShare: json['total_share'],
       totalWishlist: json['total_wishlist'],
       duration: json['duration'],
-      byteAddedOn: DateTime.parse(json['byte_added_on']),
-      byteUpdatedOn: DateTime.parse(json['byte_updated_on']),
+      byteAddedOn: json['byte_added_on'] != null
+          ? DateTime.parse(json['byte_added_on'])
+          : null,
+      byteUpdatedOn: json['byte_updated_on'] != null
+          ? DateTime.parse(json['byte_updated_on'])
+          : null,
       bunnyStreamVideoId: json['bunny_stream_video_id'],
       bytePlusVideoId: json['byte_plus_video_id'],
       language: json['language'],
@@ -109,7 +113,7 @@ class Video {
       isPrivate: json['is_private'],
       isHideComment: json['is_hide_comment'],
       description: json['description'],
-      user: User.fromJson(json['user']),
+      user: json['user'] != null ? User.fromJson(json['user']) : null,
       isLiked: json['is_liked'],
       isWished: json['is_wished'],
       isFollow: json['is_follow'],
@@ -136,8 +140,8 @@ class Video {
       'total_share': totalShare,
       'total_wishlist': totalWishlist,
       'duration': duration,
-      'byte_added_on': byteAddedOn.toIso8601String(),
-      'byte_updated_on': byteUpdatedOn.toIso8601String(),
+      'byte_added_on': byteAddedOn?.toIso8601String(),
+      'byte_updated_on': byteUpdatedOn?.toIso8601String(),
       'bunny_stream_video_id': bunnyStreamVideoId,
       'byte_plus_video_id': bytePlusVideoId,
       'language': language,
@@ -149,7 +153,7 @@ class Video {
       'is_private': isPrivate,
       'is_hide_comment': isHideComment,
       'description': description,
-      'user': user.toJson(),
+      'user': user?.toJson(),
       'is_liked': isLiked,
       'is_wished': isWished,
       'is_follow': isFollow,
