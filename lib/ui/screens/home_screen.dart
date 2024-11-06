@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_reels_flutter/data/repositories/video_repository.dart';
+import 'package:simple_reels_flutter/domain/entities/video.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,13 +10,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<Video> videos = [];
+
   @override
   void initState() {
     super.initState();
     Future.microtask(() async {
       final repository = VideoRepository();
       final videoList = await repository.fetchVideoList();
-      // print(videoList[0]);
+      setState(() {
+        videos = videoList;
+      });
     });
   }
 
@@ -28,8 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
-        itemCount: 10,
+        itemCount: videos.length,
         itemBuilder: (context, index) {
+          final video = videos[index];
           return Card(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -42,16 +48,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 200,
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Title',
-                    style: TextStyle(fontSize: 24),
+                  Text(
+                    video.title ?? '',
+                    style: const TextStyle(fontSize: 24),
                   ),
-                  const Text(
-                    'Description',
-                    style: TextStyle(fontSize: 20),
+                  Text(
+                    video.description ?? '',
+                    style: const TextStyle(fontSize: 20),
                   ),
-                  const Text('Author'),
-                  const Text('Duration'),
+                  Text(video.user?.fullname ?? ''),
+                  Text(video.duration?.toString() ?? ''),
                 ],
               ),
             ),
