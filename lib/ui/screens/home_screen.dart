@@ -43,21 +43,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    color: Colors.black26,
-                    height: 200,
-                  ),
+                  Image.network(video.thumbCdnUrl ?? ''),
                   const SizedBox(height: 16),
                   Text(
                     video.title ?? '',
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                  Text(
-                    video.description ?? '',
                     style: const TextStyle(fontSize: 20),
                   ),
-                  Text(video.user?.fullname ?? ''),
-                  Text(video.duration?.toString() ?? ''),
+                  ListTile(
+                    leading: CircleAvatar(
+                      radius: 40,
+                      backgroundImage:
+                          NetworkImage(video.user?.profilePictureCdn ?? ''),
+                    ),
+                    title: Text(video.user?.fullname ?? ''),
+                    subtitle: Text(video.user?.username ?? ''),
+                  ),
+                  Text('Duration: ${video.duration ?? 0}'),
+                  Text('Like: ${video.totalLikes ?? 0}'),
+                  Text('Comment: ${video.totalComments ?? 0}'),
+                  Text('Share: ${video.totalShare ?? 0}'),
                 ],
               ),
             ),
