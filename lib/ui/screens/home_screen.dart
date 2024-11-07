@@ -28,17 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Home'),
+        backgroundColor: Colors.black,
       ),
-      // body: ListView.builder(
-      //   padding: const EdgeInsets.all(16),
-      //   itemCount: videos.length,
-      //   itemBuilder: (context, index) {
-      //     final video = videos[index];
-      //     return VideoCard(video: video);
-      //   },
-      // ),
       body: PageView.builder(
         itemCount: videos.length,
         scrollDirection: Axis.vertical,
@@ -71,9 +62,10 @@ class VideoCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  color: Colors.white54,
+                  color: Colors.black12,
                   padding: const EdgeInsets.all(16),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Expanded(
                         child: Column(
@@ -81,28 +73,83 @@ class VideoCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ListTile(
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 0),
                               leading: CircleAvatar(
                                 radius: 40,
                                 backgroundImage: NetworkImage(
                                     video.user?.profilePictureCdn ?? ''),
                               ),
-                              title: Text(video.user?.fullname ?? ''),
-                              subtitle: Text(video.user?.username ?? ''),
+                              title: Text(
+                                video.user?.fullname ?? '',
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              subtitle: Text(
+                                video.user?.username ?? '',
+                                style: const TextStyle(color: Colors.white),
+                              ),
                             ),
                             Text(
                               video.title ?? '',
-                              style: const TextStyle(fontSize: 20),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                              ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16),
                         child: Column(
                           children: [
-                            Text('Duration: ${video.duration ?? 0}'),
-                            Text('Like: ${video.totalLikes ?? 0}'),
-                            Text('Comment: ${video.totalComments ?? 0}'),
-                            Text('Share: ${video.totalShare ?? 0}'),
+                            IconButton(
+                              onPressed: () {},
+                              iconSize: 32,
+                              icon: const Icon(
+                                Icons.favorite_outline,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              '${video.totalLikes ?? 0}',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            const SizedBox(height: 16),
+                            IconButton(
+                              onPressed: () {},
+                              iconSize: 32,
+                              icon: const Icon(
+                                Icons.chat_bubble_outline,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              '${video.totalComments ?? 0}',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            const SizedBox(height: 16),
+                            IconButton(
+                              onPressed: () {},
+                              iconSize: 32,
+                              icon: const Icon(
+                                Icons.send_outlined,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              '${video.totalShare ?? 0}',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            const SizedBox(height: 16),
+                            IconButton(
+                              onPressed: () {},
+                              iconSize: 32,
+                              icon: const Icon(
+                                Icons.more_vert,
+                                color: Colors.white,
+                              ),
+                            ),
                           ],
                         ),
                       ),
