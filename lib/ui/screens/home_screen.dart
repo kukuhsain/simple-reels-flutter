@@ -11,18 +11,42 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Video> videos = [];
+  final _videoRepository = VideoRepository();
+  late PageController _pageController;
+  int _pageDataIndex = 1;
+  List<Video> _videos = [];
 
   @override
   void initState() {
     super.initState();
+    _pageController = PageController();
     Future.microtask(() async {
-      final repository = VideoRepository();
-      final videoList = await repository.fetchVideoList();
+      final videoList =
+          await _videoRepository.fetchVideoList(page: _pageDataIndex);
       setState(() {
-        videos = videoList;
+        _videos = videoList;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _pageController.dispose();
+  }
+
+  Future<void> _onPageChanged(int pageIndex) async {
+    print('page index: $pageIndex');
+    if (pageIndex == _videos.length - 1) {
+      print('should fetch');
+      final videoList =
+          await _videoRepository.fetchVideoList(page: _pageDataIndex + 1);
+      setState(() {
+        _videos = [..._videos, ...videoList];
+        _pageDataIndex++;
+        print('fetched, length: ${_videos.length}, page: $_pageDataIndex');
+      });
+    }
   }
 
   @override
@@ -30,10 +54,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: PageView.builder(
-        itemCount: videos.length,
+        controller: _pageController,
+        onPageChanged: _onPageChanged,
+        itemCount: _videos.length,
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
-          final video = videos[index];
+          final video = _videos[index];
           return VideoDisplay(video: video);
         },
       ),

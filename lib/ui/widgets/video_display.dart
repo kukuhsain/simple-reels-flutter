@@ -58,6 +58,8 @@ class VideoDisplay extends StatelessWidget {
                             ),
                             Text(
                               video.title ?? '',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
