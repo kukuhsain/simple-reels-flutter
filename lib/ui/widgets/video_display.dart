@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_reels_flutter/domain/entities/video.dart';
+import 'package:simple_reels_flutter/ui/widgets/video_player_view.dart';
 
 class VideoDisplay extends StatelessWidget {
   final Video video;
@@ -16,6 +17,9 @@ class VideoDisplay extends StatelessWidget {
             Center(
               child: Image.network(video.thumbCdnUrl ?? ''),
             ),
+            // Center(
+            //   child: VideoPlayerView(videoUrl: video.cdnUrl ?? ''),
+            // ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
