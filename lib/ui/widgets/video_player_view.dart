@@ -17,6 +17,7 @@ class VideoPlayerViewState extends State<VideoPlayerView> {
   void initState() {
     super.initState();
     // Initialize the video player with a network video URL
+    // print('video url: ${widget.videoUrl}');
     _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized
@@ -24,6 +25,12 @@ class VideoPlayerViewState extends State<VideoPlayerView> {
         // Optionally, start the video automatically
         _controller.play();
       });
+    // _controller = VideoPlayerController.networkUrl(Uri.parse(
+    //     'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'))
+    //   ..initialize().then((_) {
+    //     // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+    //     setState(() {});
+    //   });
   }
 
   @override
