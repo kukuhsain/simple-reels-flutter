@@ -61,32 +61,40 @@ class VideoCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  color: Colors.black12,
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Expanded(
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 5,
+                              blurRadius: 10,
+                              offset: const Offset(-5, 0),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.only(
+                            left: 16, top: 16, bottom: 16),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ListTile(
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 0),
+                              contentPadding: const EdgeInsets.only(bottom: 8),
                               leading: CircleAvatar(
-                                radius: 40,
+                                radius: 24,
                                 backgroundImage: NetworkImage(
                                     video.user?.profilePictureCdn ?? ''),
                               ),
                               title: Text(
-                                video.user?.fullname ?? '',
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                              subtitle: Text(
                                 video.user?.username ?? '',
-                                style: const TextStyle(color: Colors.white),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                             Text(
@@ -99,62 +107,72 @@ class VideoCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16),
-                        child: Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {},
-                              iconSize: 32,
-                              icon: const Icon(
-                                Icons.favorite_outline,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              '${video.totalLikes ?? 0}',
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            const SizedBox(height: 16),
-                            IconButton(
-                              onPressed: () {},
-                              iconSize: 32,
-                              icon: const Icon(
-                                Icons.chat_bubble_outline,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              '${video.totalComments ?? 0}',
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            const SizedBox(height: 16),
-                            IconButton(
-                              onPressed: () {},
-                              iconSize: 32,
-                              icon: const Icon(
-                                Icons.send_outlined,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              '${video.totalShare ?? 0}',
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            const SizedBox(height: 16),
-                            IconButton(
-                              onPressed: () {},
-                              iconSize: 32,
-                              icon: const Icon(
-                                Icons.more_vert,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 5,
+                            blurRadius: 10,
+                            offset: const Offset(5, 0),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            iconSize: 32,
+                            icon: const Icon(
+                              Icons.favorite_outline,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            '${video.totalLikes ?? 0}',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          const SizedBox(height: 16),
+                          IconButton(
+                            onPressed: () {},
+                            iconSize: 32,
+                            icon: const Icon(
+                              Icons.chat_bubble_outline,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            '${video.totalComments ?? 0}',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          const SizedBox(height: 16),
+                          IconButton(
+                            onPressed: () {},
+                            iconSize: 32,
+                            icon: const Icon(
+                              Icons.send_outlined,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            '${video.totalShare ?? 0}',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          const SizedBox(height: 16),
+                          IconButton(
+                            onPressed: () {},
+                            iconSize: 32,
+                            icon: const Icon(
+                              Icons.more_vert,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
