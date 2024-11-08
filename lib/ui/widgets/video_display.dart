@@ -17,9 +17,9 @@ class VideoDisplay extends StatelessWidget {
             Center(
               child: Image.network(video.thumbCdnUrl ?? ''),
             ),
-            Center(
+            /*Center(
               child: VideoPlayerView(videoUrl: video.cdnUrl ?? ''),
-            ),
+            ),*/
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,

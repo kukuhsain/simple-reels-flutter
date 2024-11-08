@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_reels_flutter/bloc/video_list_bloc.dart';
 import 'package:simple_reels_flutter/data/repositories/video_repository.dart';
 import 'package:simple_reels_flutter/domain/entities/video.dart';
 import 'package:simple_reels_flutter/ui/widgets/video_display.dart';
@@ -20,13 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _pageController = PageController();
-    Future.microtask(() async {
-      final videoList =
-          await _videoRepository.fetchVideoList(page: _pageDataIndex);
-      setState(() {
-        _videos = videoList;
-      });
-    });
   }
 
   @override
@@ -51,17 +46,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: PageView.builder(
-        controller: _pageController,
-        onPageChanged: _onPageChanged,
-        itemCount: _videos.length,
-        scrollDirection: Axis.vertical,
-        itemBuilder: (context, index) {
-          final video = _videos[index];
-          return VideoDisplay(video: video);
-        },
+    return BlocProvider(
+      create: (context) => VideoListBloc()..add(FetchVideoListEvent()),
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: BlocBuilder<VideoListBloc, VideoListState>(
+          builder: (context, state) {
+            if (state is VideoListData) {
+              return PageView.builder(
+                controller: _pageController,
+                // onPageChanged: _onPageChanged,
+                itemCount: state.videos.length,
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, index) {
+                  final video = state.videos[index];
+                  return VideoDisplay(video: video);
+                },
+              );
+            } else if (state is VideoListError) {
+              return const Center(child: Text('Error'));
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ),
     );
   }
