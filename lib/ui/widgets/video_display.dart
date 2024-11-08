@@ -9,13 +9,17 @@ class VideoDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final thumbnail = video.thumbCdnUrl ?? '';
+    final profPic = video.user?.profilePictureCdn ?? '';
     return Container(
       color: Colors.black,
       child: SizedBox(
         child: Stack(
           children: [
             Center(
-              child: Image.network(video.thumbCdnUrl ?? ''),
+              child: thumbnail.isNotEmpty
+                  ? Image.network(video.thumbCdnUrl ?? '')
+                  : null,
             ),
             /*Center(
               child: VideoPlayerView(videoUrl: video.cdnUrl ?? ''),
@@ -49,8 +53,10 @@ class VideoDisplay extends StatelessWidget {
                               contentPadding: const EdgeInsets.only(bottom: 8),
                               leading: CircleAvatar(
                                 radius: 24,
-                                backgroundImage: NetworkImage(
-                                    video.user?.profilePictureCdn ?? ''),
+                                backgroundColor: Colors.grey,
+                                backgroundImage: profPic.isNotEmpty
+                                    ? NetworkImage(profPic)
+                                    : null,
                               ),
                               title: Text(
                                 video.user?.username ?? '',
