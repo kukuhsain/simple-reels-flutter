@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_reels_flutter/bloc/video_list_bloc.dart';
+import 'package:simple_reels_flutter/data/repositories/video_repository_impl.dart';
+import 'package:simple_reels_flutter/domain/repositories/video_repository.dart';
 import 'package:simple_reels_flutter/ui/widgets/video_display.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final VideoRepository _videoRepository = VideoRepositoryImpl();
   late PageController _pageController;
 
   @override
@@ -28,7 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => VideoListBloc()..add(FetchVideoListEvent()),
+      create: (context) =>
+          VideoListBloc(_videoRepository)..add(FetchVideoListEvent()),
       child: Scaffold(
         backgroundColor: Colors.black,
         body: BlocBuilder<VideoListBloc, VideoListState>(
