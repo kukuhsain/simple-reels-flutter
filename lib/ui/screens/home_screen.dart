@@ -37,14 +37,11 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.black,
         body: BlocBuilder<VideoListBloc, VideoListState>(
           builder: (context, state) {
-            print('video length: ${state.videos.length}');
             if (state.videos.isNotEmpty) {
               return PageView.builder(
                 controller: _pageController,
                 onPageChanged: (index) {
-                  print('page index: $index');
                   if (index == state.videos.length - 1) {
-                    print('should fetch...');
                     context.read<VideoListBloc>().add(FetchVideoListEvent());
                   }
                 },
@@ -58,7 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
             } else if (state.status == VideoListStatus.failure) {
               return const Center(child: Text('Error'));
             } else {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              );
             }
           },
         ),

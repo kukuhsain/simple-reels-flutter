@@ -10,6 +10,7 @@ class VideoDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final thumbnail = video.thumbCdnUrl ?? '';
+    final videoUrl = video.cdnUrl ?? '';
     final profPic = video.user?.profilePictureCdn ?? '';
     return Container(
       color: Colors.black,
@@ -21,9 +22,8 @@ class VideoDisplay extends StatelessWidget {
                   ? Image.network(video.thumbCdnUrl ?? '')
                   : null,
             ),
-            /*Center(
-              child: VideoPlayerView(videoUrl: video.cdnUrl ?? ''),
-            ),*/
+            if (videoUrl.isNotEmpty)
+              Center(child: VideoPlayerView(videoUrl: videoUrl)),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,

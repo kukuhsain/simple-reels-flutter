@@ -48,7 +48,9 @@ class VideoPlayerViewState extends State<VideoPlayerView> {
               aspectRatio: _controller.value.aspectRatio,
               child: VideoPlayer(_controller),
             )
-          : const CircularProgressIndicator(),
+          : const CircularProgressIndicator(
+              color: Colors.white,
+            ),
     );
   }
 }
