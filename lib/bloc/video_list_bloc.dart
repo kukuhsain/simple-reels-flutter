@@ -7,16 +7,26 @@ part 'video_list_event.dart';
 part 'video_list_state.dart';
 
 class VideoListBloc extends Bloc<VideoListEvent, VideoListState> {
-  VideoListBloc() : super(VideoListInitial()) {
-    on<FetchVideoListEvent>((event, emit) async {
-      emit(VideoListInitial());
-      try {
-        final videoRepository = VideoRepository();
-        final videoList = await videoRepository.fetchVideoList(page: 1);
-        emit(VideoListData(videoList, 1));
-      } catch (err) {
-        emit(VideoListError());
-      }
-    });
+  VideoListBloc() : super(const VideoListState()) {
+    on<FetchVideoListEvent>(_fetchVideoList);
+  }
+
+  Future<void> _fetchVideoList(
+    VideoListEvent event,
+    Emitter<VideoListState> emit,
+  ) async {
+    emit(state.copyWith(status: VideoListStatus.loading));
+    try {
+      final videoRepository = VideoRepository();
+      final newDataPage = state.dataPage + 1;
+      final videoList = await videoRepository.fetchVideoList(page: newDataPage);
+      emit(state.copyWith(
+        status: VideoListStatus.success,
+        videos: [...state.videos, ...videoList],
+        dataPage: newDataPage,
+      ));
+    } catch (err) {
+      emit(state.copyWith(status: VideoListStatus.failure));
+    }
   }
 }

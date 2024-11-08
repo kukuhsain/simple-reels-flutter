@@ -1,14 +1,27 @@
 part of 'video_list_bloc.dart';
 
-sealed class VideoListState {}
+enum VideoListStatus { loading, success, failure }
 
-final class VideoListInitial extends VideoListState {}
-
-final class VideoListData extends VideoListState {
+class VideoListState {
+  final VideoListStatus status;
   final List<Video> videos;
-  final int page;
+  final int dataPage;
 
-  VideoListData(this.videos, this.page);
+  const VideoListState({
+    this.status = VideoListStatus.loading,
+    this.videos = const [],
+    this.dataPage = 0,
+  });
+
+  VideoListState copyWith({
+    VideoListStatus? status,
+    List<Video>? videos,
+    int? dataPage,
+  }) {
+    return VideoListState(
+      status: status ?? this.status,
+      videos: videos ?? this.videos,
+      dataPage: dataPage ?? this.dataPage,
+    );
+  }
 }
-
-final class VideoListError extends VideoListState {}
